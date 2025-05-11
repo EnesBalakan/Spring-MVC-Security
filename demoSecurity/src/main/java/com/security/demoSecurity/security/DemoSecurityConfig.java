@@ -36,17 +36,17 @@ public class DemoSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(config -> config
-                        .requestMatchers("/showLoginPage").permitAll() // Login sayfasına izin ver
+        http.authorizeHttpRequests(configurer -> configurer
                         .anyRequest().authenticated() // Diğer tüm istekler için kimlik doğrulama
                 )
                 .formLogin(form -> form
-                        .loginPage("/showLoginPage")
+                        .loginPage("/showMyLoginPage")
                         .loginProcessingUrl("/authenticateTheUser")
                         .defaultSuccessUrl("/home", true)
                         .permitAll()
                 )
-                .logout(logout -> logout.permitAll());
+                .logout(logout->logout.permitAll()
+                );
 
         return http.build();
     }
